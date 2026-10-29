@@ -1,0 +1,447 @@
+/* ==========================================================================
+   Variables y Paleta Corporativa Jira / Atlassian
+   ========================================================================== */
+:root {
+  --jira-blue: #0052cc;
+  --jira-blue-hover: #0747a6;
+  --jira-blue-light: #deebff;
+  --jira-navy: #172b4d;
+  --jira-gray-100: #f4f5f7;
+  --jira-gray-200: #ebecf0;
+  --jira-gray-300: #dfe1e6;
+  --jira-gray-500: #6b778c;
+  --jira-green: #36b37e;
+  --jira-green-light: #e3fcef;
+  --jira-orange: #ffab00;
+  --jira-orange-light: #fff0b3;
+  --jira-danger: #de350b;
+  --jira-danger-light: #ffebe6;
+  --jira-radius: 4px;
+  --jira-shadow: 0 1px 3px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
+  --jira-shadow-hover: 0 4px 8px -2px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* ==========================================================================
+   Reseteo y estilos base optimizados para iframes de Google Sites
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: #ffffff;
+  color: var(--jira-navy);
+  font-size: 14px;
+  line-height: 1.42857;
+  overflow-x: hidden;
+}
+
+.kanban-app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 16px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   Barra superior (App Header)
+   ========================================================================== */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--jira-gray-300);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.jira-brand-icon {
+  color: var(--jira-blue);
+  display: flex;
+  align-items: center;
+}
+
+.app-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--jira-navy);
+}
+
+.app-subtitle {
+  font-size: 12px;
+  color: var(--jira-gray-500);
+}
+
+.header-right {
+  display: flex;
+  gap: 8px;
+}
+
+/* ==========================================================================
+   Botones
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: var(--jira-radius);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  user-select: none;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--jira-blue);
+  outline-offset: 1px;
+}
+
+.btn-primary {
+  background-color: var(--jira-blue);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: var(--jira-blue-hover);
+}
+
+.btn-secondary {
+  background-color: var(--jira-gray-200);
+  color: var(--jira-navy);
+}
+
+.btn-secondary:hover {
+  background-color: var(--jira-gray-300);
+}
+
+/* ==========================================================================
+   Tablero de Columnas (Board Grid)
+   ========================================================================== */
+.board-container {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(280px, 1fr));
+  gap: 16px;
+  align-items: start;
+  flex: 1;
+}
+
+@media (max-width: 900px) {
+  .board-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.column {
+  background-color: var(--jira-gray-100);
+  border-radius: var(--jira-radius);
+  display: flex;
+  flex-direction: column;
+  min-height: 480px;
+  padding: 10px;
+}
+
+.column-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding: 4px 6px;
+}
+
+.column-title {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--jira-gray-500);
+  letter-spacing: 0.5px;
+}
+
+.badge {
+  background-color: var(--jira-gray-300);
+  color: var(--jira-navy);
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 10px;
+  padding: 2px 8px;
+}
+
+.column-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  min-height: 200px;
+  padding-bottom: 20px;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  border: 2px dashed transparent;
+  border-radius: var(--jira-radius);
+}
+
+/* Estado de resaltado en Drag & Drop */
+.column-cards.drag-over {
+  background-color: var(--jira-blue-light);
+  border-color: var(--jira-blue);
+}
+
+/* ==========================================================================
+   Tarjetas de Tareas (Task Cards)
+   ========================================================================== */
+.task-card {
+  background-color: #ffffff;
+  border-radius: var(--jira-radius);
+  box-shadow: var(--jira-shadow);
+  padding: 12px;
+  cursor: grab;
+  transition: transform 0.1s ease, box-shadow 0.15s ease;
+  border-left: 4px solid var(--jira-gray-500);
+  position: relative;
+}
+
+.task-card:hover {
+  box-shadow: var(--jira-shadow-hover);
+}
+
+.task-card:active {
+  cursor: grabbing;
+}
+
+.task-card.dragging {
+  opacity: 0.4;
+}
+
+/* Bordes de color según estado */
+.task-card[data-status="TODO"] {
+  border-left-color: var(--jira-gray-500);
+}
+.task-card[data-status="IN_PROGRESS"] {
+  border-left-color: var(--jira-orange);
+}
+.task-card[data-status="DONE"] {
+  border-left-color: var(--jira-green);
+}
+
+.card-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--jira-navy);
+  margin-bottom: 6px;
+  word-break: break-word;
+}
+
+.card-desc {
+  font-size: 12px;
+  color: var(--jira-gray-500);
+  margin-bottom: 12px;
+  white-space: pre-line;
+  word-break: break-word;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 8px;
+  border-top: 1px solid var(--jira-gray-200);
+  font-size: 11px;
+}
+
+.card-id {
+  font-family: monospace;
+  color: var(--jira-gray-500);
+  font-size: 10px;
+}
+
+.card-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.btn-move {
+  background: var(--jira-gray-200);
+  border: none;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 3px 6px;
+  border-radius: 3px;
+  cursor: pointer;
+  color: var(--jira-navy);
+  transition: background-color 0.15s ease;
+}
+
+.btn-move:hover {
+  background: var(--jira-blue-light);
+  color: var(--jira-blue);
+}
+
+/* ==========================================================================
+   Modal accesible para Crear Tarea
+   ========================================================================== */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(9, 30, 66, 0.54);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.modal-backdrop[hidden] {
+  display: none !important;
+}
+
+.modal-dialog {
+  background: #ffffff;
+  border-radius: var(--jira-radius);
+  box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25);
+  width: 100%;
+  max-width: 500px;
+  overflow: hidden;
+  animation: modalFadeIn 0.15s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--jira-gray-300);
+}
+
+.modal-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.btn-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--jira-gray-500);
+  line-height: 1;
+}
+
+.btn-close:hover {
+  color: var(--jira-navy);
+}
+
+.modal-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--jira-gray-500);
+}
+
+.form-label .required {
+  color: var(--jira-danger);
+}
+
+.form-control {
+  font-family: inherit;
+  font-size: 13px;
+  padding: 8px 10px;
+  border: 2px solid var(--jira-gray-300);
+  border-radius: var(--jira-radius);
+  background-color: #fafbfc;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.form-control:focus {
+  background-color: #ffffff;
+  border-color: var(--jira-blue);
+  outline: none;
+}
+
+.form-feedback {
+  font-size: 11px;
+  color: var(--jira-danger);
+  min-height: 14px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 14px 20px;
+  background-color: var(--jira-gray-100);
+  border-top: 1px solid var(--jira-gray-300);
+}
+
+/* ==========================================================================
+   Contenedor Toast (Notificaciones)
+   ========================================================================== */
+.toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 2000;
+}
+
+.toast {
+  background-color: var(--jira-navy);
+  color: #ffffff;
+  padding: 10px 16px;
+  border-radius: var(--jira-radius);
+  font-size: 13px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  animation: toastIn 0.2s ease-out;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.toast-error {
+  background-color: var(--jira-danger);
+}
+
+.toast-success {
+  background-color: var(--jira-green);
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}

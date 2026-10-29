@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tablero Kanban — Clon de Jira para Google Sites</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Contenedor principal del tablero optimizado para iframes -->
+  <div class="kanban-app" id="kanbanApp">
+    
+    <!-- Barra superior de herramientas -->
+    <header class="app-header">
+      <div class="header-left">
+        <div class="jira-brand-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+            <path d="M11.53 2c0 2.4 1.97 4.35 4.35 4.35h1.78v1.7c0 2.4 1.94 4.34 4.34 4.35V2.84a.84.84 0 0 0-.84-.84H11.53zM6.77 6.8a4.36 4.36 0 0 0 4.34 4.36h1.78v1.7c0 2.4 1.94 4.35 4.34 4.35V7.63a.84.84 0 0 0-.83-.83H6.77zM2 11.6a4.36 4.36 0 0 0 4.34 4.36h1.78v1.7c0 2.4 1.95 4.34 4.35 4.34v-9.56a.84.84 0 0 0-.84-.84H2z"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="app-title">Tablero Kanban</h1>
+          <p class="app-subtitle">Gestión de tareas y flujo de trabajo</p>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <button class="btn btn-secondary" id="btnRefresh" title="Actualizar tareas">
+          <span class="icon" aria-hidden="true">↻</span> Refrescar
+        </button>
+        <button class="btn btn-primary" id="btnOpenModal" aria-haspopup="dialog">
+          <span class="icon" aria-hidden="true">+</span> Crear Tarea
+        </button>
+      </div>
+    </header>
+
+    <!-- Notificaciones flotantes / Toast -->
+    <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- Tablero de columnas Kanban -->
+    <main class="board-container" id="boardContainer" role="region" aria-label="Tablero Kanban">
+      
+      <!-- Columna: Por hacer (TODO) -->
+      <section class="column" data-status="TODO" aria-labelledby="colHeaderTodo">
+        <div class="column-header">
+          <h2 id="colHeaderTodo" class="column-title">Por hacer</h2>
+          <span class="badge" id="badgeTodo" aria-label="Cantidad de tareas por hacer">0</span>
+        </div>
+        <div class="column-cards" id="cardsTodo" data-status="TODO" role="list">
+          <!-- Tarjetas renderizadas dinámicamente -->
+        </div>
+      </section>
+
+      <!-- Columna: En progreso (IN_PROGRESS) -->
+      <section class="column" data-status="IN_PROGRESS" aria-labelledby="colHeaderInProgress">
+        <div class="column-header">
+          <h2 id="colHeaderInProgress" class="column-title">En progreso</h2>
+          <span class="badge" id="badgeInProgress" aria-label="Cantidad de tareas en progreso">0</span>
+        </div>
+        <div class="column-cards" id="cardsInProgress" data-status="IN_PROGRESS" role="list">
+          <!-- Tarjetas renderizadas dinámicamente -->
+        </div>
+      </section>
+
+      <!-- Columna: Hecho (DONE) -->
+      <section class="column" data-status="DONE" aria-labelledby="colHeaderDone">
+        <div class="column-header">
+          <h2 id="colHeaderDone" class="column-title">Hecho</h2>
+          <span class="badge" id="badgeDone" aria-label="Cantidad de tareas hechas">0</span>
+        </div>
+        <div class="column-cards" id="cardsDone" data-status="DONE" role="list">
+          <!-- Tarjetas renderizadas dinámicamente -->
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Modal para Crear Tarea -->
+    <div class="modal-backdrop" id="modalBackdrop" hidden>
+      <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-header">
+          <h2 id="modalTitle" class="modal-title">Crear nueva tarea</h2>
+          <button type="button" class="btn-close" id="btnCloseModal" aria-label="Cerrar ventana">×</button>
+        </div>
+
+        <form id="createTaskForm" novalidate>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="taskTitle" class="form-label">Título <span class="required" aria-hidden="true">*</span></label>
+              <input type="text" id="taskTitle" name="title" class="form-control" placeholder="Ej. Diseñar arquitectura de persistencia" required maxlength="120">
+              <span class="form-feedback" id="titleFeedback"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="taskDescription" class="form-label">Descripción (opcional)</label>
+              <textarea id="taskDescription" name="description" class="form-control" rows="3" placeholder="Detalles o especificaciones adicionales..."></textarea>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" id="btnCancelModal">Cancelar</button>
+            <button type="submit" class="btn btn-primary" id="btnSubmitTask">Guardar Tarea</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
